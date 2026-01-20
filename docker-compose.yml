@@ -1,0 +1,66 @@
+# version: "3.9"
+
+# services:
+#   proxy:
+#     image: nginx:alpine
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#     depends_on:
+#       - app
+
+#   app:
+#     build: .
+#     env_file:
+#       - .env
+#     depends_on:
+#       - db
+#     healthcheck:
+#     test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+#     interval: 10s
+#     timeout: 5s
+#     retries: 5
+
+#   db:
+#     image: mongo:6
+#     volumes:
+#       - mongo_data:/data/db
+
+# volumes:
+#   mongo_data:
+
+
+version: "3.9"
+
+services:
+  proxy:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+
+  app:
+    build: .
+    env_file:
+      - .env
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db:
+    image: mongo:6
+    ports:
+    - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
