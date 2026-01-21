@@ -57,8 +57,9 @@ services:
 
   db:
     image: mongo:6
-    ports:
-    - "27017:27017"
+    #commented it show that is don't show
+    # ports:
+    # - "27017:27017"
     volumes:
       - mongo_data:/data/db
 
